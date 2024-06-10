@@ -6,6 +6,41 @@
     <title>Coming Soon</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
+    <script>
+        async function submitForm(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const form = event.target;
+            const formData = new FormData(form);
+
+            // Convert FormData to an object
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+
+            try {
+                const response = await fetch('https://script.google.com/macros/s/AKfycbyHRfGkfBbg61vQHnjPzZFjCnpNZwRzRiBGPqIM84aHqcSa67CfBxFipMNEOpDR_xDZMg/exec', {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    alert('Form submitted successfully!');
+                    form.reset(); // Reset the form after successful submission
+                } else {
+                    alert('Failed to submit the form.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while submitting the form.');
+            }
+        }
+    </script>
 </head>
 <body>
     <!-- Background Video -->
@@ -23,7 +58,7 @@
     <div class="page-wrapper">
         <header class="header">
             <div class="logo">
-                <img src="archlelogolatest.png" alt="Logo">
+                <img src="archlelognofullform.png" alt="Logo">
             </div>
         </header>
         <div class="container">
@@ -32,18 +67,18 @@
                     <div class="welcome-text">
                         <h1>Coming Soon</h1>
                         <p>Innovation in Progress. Stay tuned for cutting-edge developments</p>
-                          <h3>    </h3>
+                        <h3>    </h3>
                         <p><strong>Welcome</strong> to Archle Labs - ADVANCED RESEARCH CENTRE FOR HEALTH AND LIFE SCIENCE ENGINEERING.</p>
-                          <h3>    </h3>                        
+                        <h3>    </h3>                        
                         <p>At Archle Labs, we're dedicated to pioneering advancements in health and life sciences engineering. With a passionate team of researchers, scientists, and engineers, we're committed to pushing the boundaries of knowledge and innovation.</p>
-                         <h3>    </h3>
+                        <h3>    </h3>
                         <h3><em>"Our mission is to drive innovations that not only solve complex medical challenges but also enhance human lives."</em></h3>
                         <p>Our commitment lies in harnessing the power of science and engineering to create tangible solutions that empower the health of individuals and communities worldwide.</p>
                         <h3>    </h3>
                         <p>Join us on this journey of discovery as we work towards a healthier future for all.</p>
                     </div>
                 </div>
-                <form class="notify-form" action="contact.php" method="post">
+                <form class="notify-form" onsubmit="submitForm(event)">
                     <input type="text" name="name" placeholder="Your Name" required>
                     <input type="email" name="email" placeholder="Your Email" required>
                     <textarea name="message" placeholder="Your Message" required></textarea>
@@ -65,4 +100,3 @@
     </div>
 </body>
 </html>
-"
